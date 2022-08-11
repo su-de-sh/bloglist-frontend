@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Blog from "./components/Blog";
 import blogService from "./services/blogs";
 import loginService from "./services/login";
+import Notification from "./components/Notification";
 
 const App = () => {
   const [blogs, setBlogs] = useState([]);
@@ -11,6 +12,7 @@ const App = () => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [url, setUrl] = useState("");
+  const [message, setMessage] = useState({ message: null, type: null });
 
   useEffect(() => {
     window.localStorage.getItem("loggedinUser") &&
@@ -30,7 +32,10 @@ const App = () => {
       setUsername("");
       setPassword("");
     } catch (exception) {
-      console.log(exception.response.data.error);
+      setMessage({ message: exception.response.data.error, type: "error" });
+      setTimeout(() => {
+        setMessage({ message: null, type: null });
+      }, 5000);
     }
   };
 
@@ -67,19 +72,35 @@ const App = () => {
 
   const handleBlogCreation = async (event) => {
     event.preventDefault();
-    const newBlog = {
-      title,
-      author,
-      url,
-    };
-    const returnedBlog = await blogService.create(newBlog);
-    setBlogs(blogs.concat(returnedBlog));
-    setTitle("");
-    setAuthor("");
-    setUrl("");
+    try {
+      const newBlog = {
+        title,
+        author,
+        url,
+      };
+      const returnedBlog = await blogService.create(newBlog);
+      setBlogs(blogs.concat(returnedBlog));
+
+      setTitle("");
+      setAuthor("");
+      setUrl("");
+      setMessage({
+        message: `a new blog ${returnedBlog.title} by ${returnedBlog.author} added`,
+        type: "success",
+      });
+
+      setTimeout(() => {
+        setMessage({ message: null, type: null });
+      }, 5000);
+    } catch (exception) {
+      setMessage({ message: exception.response.data.error, type: "error" });
+      setTimeout(() => {
+        setMessage({ message: null, type: null });
+      }, 5000);
+    }
   };
   const createBlogForm = () => (
-    <form action="">
+    <form onSubmit={handleBlogCreation}>
       <div>
         title:{" "}
         <input
@@ -113,9 +134,7 @@ const App = () => {
           }}
         />
       </div>
-      <button type="submit" onClick={handleBlogCreation}>
-        create
-      </button>
+      <button type="submit">create</button>
     </form>
   );
 
@@ -123,11 +142,14 @@ const App = () => {
     <div>
       {user === null ? (
         <>
-          <h2>log in to application</h2> {loginForm()}
+          <h2>log in to application</h2>
+          <Notification message={message.message} type={message.type} />
+          {loginForm()}
         </>
       ) : (
         <>
           <h2>blogs</h2>
+          <Notification message={message.message} type={message.type} />
           <span>{user.name} logged in </span>
           <button onClick={handleLogout}>logout</button>
           {createBlogForm()}
