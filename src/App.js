@@ -10,6 +10,8 @@ const App = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
+    window.localStorage.getItem("loggedinUser") &&
+      setUser(JSON.parse(window.localStorage.getItem("loggedinUser")));
     blogService.getAll().then((blogs) => setBlogs(blogs));
   }, []);
 
@@ -19,7 +21,7 @@ const App = () => {
       username,
       password,
     });
-
+    window.localStorage.setItem("loggedinUser", JSON.stringify(user));
     setUser(user);
     setUsername("");
     setPassword("");
