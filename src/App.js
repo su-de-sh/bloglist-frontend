@@ -10,9 +10,7 @@ const App = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
-  const [title, setTitle] = useState("");
-  const [author, setAuthor] = useState("");
-  const [url, setUrl] = useState("");
+
   const [message, setMessage] = useState({ message: null, type: null });
   const [visible, setVisible] = useState(false);
 
@@ -72,21 +70,12 @@ const App = () => {
     setUser(null);
   };
 
-  const handleBlogCreation = async (event) => {
-    event.preventDefault();
-    setVisible(false);
+  const handleBlogCreation = async (blogObject) => {
     try {
-      const newBlog = {
-        title,
-        author,
-        url,
-      };
-      const returnedBlog = await blogService.create(newBlog);
+      setVisible(false);
+      const returnedBlog = await blogService.create(blogObject);
       setBlogs(blogs.concat(returnedBlog));
 
-      setTitle("");
-      setAuthor("");
-      setUrl("");
       setMessage({
         message: `a new blog ${returnedBlog.title} by ${returnedBlog.author} added`,
         type: "success",
@@ -103,15 +92,7 @@ const App = () => {
     }
   };
   const createBlogForm = () => (
-    <BlogForm
-      handleBlogCreation={handleBlogCreation}
-      title={title}
-      setTitle={setTitle}
-      author={author}
-      setAuthor={setAuthor}
-      url={url}
-      setUrl={setUrl}
-    />
+    <BlogForm setVisible={setVisible} newBlog={handleBlogCreation} />
   );
 
   return (

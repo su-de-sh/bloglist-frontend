@@ -1,15 +1,23 @@
 import React from "react";
-export function BlogForm({
-  handleBlogCreation,
-  title,
-  event,
-  setTitle,
-  author,
-  setAuthor,
-  url,
-  setUrl,
-  setVisible,
-}) {
+import { useState } from "react";
+export function BlogForm({ newBlog, setVisible }) {
+  const [title, setTitle] = useState("");
+  const [author, setAuthor] = useState("");
+  const [url, setUrl] = useState("");
+
+  const handleBlogCreation = (event) => {
+    event.preventDefault();
+
+    setTitle("");
+    setAuthor("");
+    setUrl("");
+    newBlog({
+      title,
+      author,
+      url,
+    });
+  };
+
   return (
     <>
       <h2>create new</h2>
