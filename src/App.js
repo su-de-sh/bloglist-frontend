@@ -112,13 +112,13 @@ const App = () => {
           {visible ? (
             createBlogForm()
           ) : (
-            <div>
+            <div style={{ marginTop: 25, marginBottom: 10 }}>
               <button
                 onClick={() => {
                   setVisible(true);
                 }}
               >
-                new form
+                create new blog
               </button>
             </div>
           )}
