@@ -49,6 +49,7 @@ export function BlogForm({
         </div>
         <button type="submit">create</button>
       </form>
+      <button onClick={() => setVisible(false)}>cancel</button>
     </>
   );
 }

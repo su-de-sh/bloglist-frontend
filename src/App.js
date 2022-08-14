@@ -111,7 +111,6 @@ const App = () => {
       setAuthor={setAuthor}
       url={url}
       setUrl={setUrl}
-      setVisible={setVisible}
     />
   );
 
