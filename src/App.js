@@ -14,6 +14,7 @@ const App = () => {
   const [author, setAuthor] = useState("");
   const [url, setUrl] = useState("");
   const [message, setMessage] = useState({ message: null, type: null });
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     window.localStorage.getItem("loggedinUser") &&
@@ -73,6 +74,7 @@ const App = () => {
 
   const handleBlogCreation = async (event) => {
     event.preventDefault();
+    setVisible(false);
     try {
       const newBlog = {
         title,
@@ -109,6 +111,7 @@ const App = () => {
       setAuthor={setAuthor}
       url={url}
       setUrl={setUrl}
+      setVisible={setVisible}
     />
   );
 
@@ -126,7 +129,19 @@ const App = () => {
           <Notification message={message.message} type={message.type} />
           <span>{user.name} logged in </span>
           <button onClick={handleLogout}>logout</button>
-          {createBlogForm()}
+          {visible ? (
+            createBlogForm()
+          ) : (
+            <div>
+              <button
+                onClick={() => {
+                  setVisible(true);
+                }}
+              >
+                new form
+              </button>
+            </div>
+          )}
           {blogs.map((blog) => (
             <Blog key={blog.id} blog={blog} />
           ))}
