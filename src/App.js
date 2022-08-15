@@ -91,6 +91,28 @@ const App = () => {
       }, 5000);
     }
   };
+
+  const updateLike = async (id, updatedLikes) => {
+    // console.log("updated blog", id, newBlogObject);
+    try {
+      const blogToUpdate = blogs.find((blog) => blog.id === id);
+      const newBlogObject = {
+        likes: updatedLikes,
+        author: blogToUpdate.author,
+        title: blogToUpdate.title,
+        url: blogToUpdate.url,
+      };
+      // console.log("updated blog", id, newBlogObject);
+      const response = await blogService.update(id, newBlogObject);
+
+      setBlogs(blogs.map((blog) => (blog.id === id ? response : blog)));
+    } catch (exception) {
+      setMessage({ message: exception.response.data.error, type: "error" });
+      setTimeout(() => {
+        setMessage({ message: null, type: null });
+      }, 5000);
+    }
+  };
   const createBlogForm = () => (
     <BlogForm setVisible={setVisible} newBlog={handleBlogCreation} />
   );
@@ -123,7 +145,7 @@ const App = () => {
             </div>
           )}
           {blogs.map((blog) => (
-            <Blog key={blog.id} blog={blog} />
+            <Blog key={blog.id} blog={blog} updateLike={updateLike} />
           ))}
         </>
       )}

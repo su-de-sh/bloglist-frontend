@@ -1,6 +1,10 @@
 import { useState } from "react";
-const Blog = ({ blog }) => {
+const Blog = ({ blog, updateLike }) => {
   const [view, setView] = useState(false);
+
+  const increaseLike = (id) => {
+    updateLike(id, blog.likes + 1);
+  };
 
   const toggleView = () => {
     setView(!view);
@@ -27,7 +31,8 @@ const Blog = ({ blog }) => {
           {blog.title} <button onClick={toggleView}>hide</button>
           <div>{blog.url}</div>
           <div>
-            likes:{blog.likes} <button>like</button>
+            likes:{blog.likes}{" "}
+            <button onClick={() => increaseLike(blog.id)}>like</button>
           </div>
           <div>{blog.author}</div>
         </div>

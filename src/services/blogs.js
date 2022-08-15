@@ -18,5 +18,17 @@ const create = async (newBlog) => {
   return response.data;
 };
 
+const update = async (id, newBlog) => {
+  const token = JSON.parse(window.localStorage.getItem("loggedinUser")).token;
+  const config = {
+    headers: {
+      Authorization: `bearer ${token}`,
+    },
+  };
+
+  const response = await axios.put(`${baseUrl}/${id}`, newBlog, config);
+  return response.data;
+};
+
 // eslint-disable-next-line
-export default { getAll, create };
+export default { getAll, create, update };
