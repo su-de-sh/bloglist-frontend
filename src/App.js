@@ -27,7 +27,9 @@ const App = () => {
         username,
         password,
       });
+
       window.localStorage.setItem("loggedinUser", JSON.stringify(user));
+      // console.log(user);
       setUser(user);
       setUsername("");
       setPassword("");
@@ -146,7 +148,12 @@ const App = () => {
             </div>
           )}
           {sortedBlogs.map((blog) => (
-            <Blog key={blog.id} blog={blog} updateLike={updateLike} />
+            <Blog
+              key={blog.id}
+              blog={blog}
+              updateLike={updateLike}
+              user={user}
+            />
           ))}
         </>
       )}

@@ -1,5 +1,5 @@
 import { useState } from "react";
-const Blog = ({ blog, updateLike }) => {
+const Blog = ({ blog, updateLike, user }) => {
   const [view, setView] = useState(false);
 
   const increaseLike = (id) => {
@@ -20,6 +20,7 @@ const Blog = ({ blog, updateLike }) => {
     borderColor: "grey",
     marginBottom: 5,
   };
+
   return (
     <>
       {!view ? (
@@ -35,6 +36,9 @@ const Blog = ({ blog, updateLike }) => {
             <button onClick={() => increaseLike(blog.id)}>like</button>
           </div>
           <div>{blog.author}</div>
+          {blog.user.id === user.id ? (
+            <button style={{ backgroundColor: "blue" }}>delete</button>
+          ) : null}
         </div>
       )}
     </>
