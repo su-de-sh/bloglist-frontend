@@ -117,6 +117,7 @@ const App = () => {
     <BlogForm setVisible={setVisible} newBlog={handleBlogCreation} />
   );
 
+  const sortedBlogs = blogs.sort((a, b) => b.likes - a.likes);
   return (
     <div>
       {user === null ? (
@@ -144,7 +145,7 @@ const App = () => {
               </button>
             </div>
           )}
-          {blogs.map((blog) => (
+          {sortedBlogs.map((blog) => (
             <Blog key={blog.id} blog={blog} updateLike={updateLike} />
           ))}
         </>
