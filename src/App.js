@@ -115,6 +115,26 @@ const App = () => {
       }, 5000);
     }
   };
+
+  const deleteBlog = async (id) => {
+    const blogToRemove = blogs.find((blog) => blog.id === id);
+    const ok = window.confirm(
+      `Remove blog ${blogToRemove.id} by ${blogToRemove.author}?`
+    );
+    if (ok) {
+      await blogService.remove(id);
+      setBlogs(blogs.filter((blog) => blog.id !== id));
+
+      setMessage({
+        message: `blog ${blogToRemove.title} by ${blogToRemove.author} removed`,
+        type: "success",
+      });
+      setTimeout(() => {
+        setMessage({ message: null, type: null });
+      }, 5000);
+    }
+  };
+
   const createBlogForm = () => (
     <BlogForm setVisible={setVisible} newBlog={handleBlogCreation} />
   );
@@ -152,6 +172,7 @@ const App = () => {
               key={blog.id}
               blog={blog}
               updateLike={updateLike}
+              removeBlog={deleteBlog}
               user={user}
             />
           ))}

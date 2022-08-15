@@ -30,5 +30,17 @@ const update = async (id, newBlog) => {
   return response.data;
 };
 
+const remove = async (id) => {
+  const token = JSON.parse(window.localStorage.getItem("loggedinUser")).token;
+  const config = {
+    headers: {
+      Authorization: `bearer ${token}`,
+    },
+  };
+
+  const response = await axios.delete(`${baseUrl}/${id}`, config);
+  return response.data;
+};
+
 // eslint-disable-next-line
-export default { getAll, create, update };
+export default { getAll, create, update, remove };

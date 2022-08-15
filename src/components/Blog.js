@@ -1,9 +1,13 @@
 import { useState } from "react";
-const Blog = ({ blog, updateLike, user }) => {
+const Blog = ({ blog, updateLike, user, removeBlog }) => {
   const [view, setView] = useState(false);
 
   const increaseLike = (id) => {
     updateLike(id, blog.likes + 1);
+  };
+
+  const deleteBlog = async (id) => {
+    removeBlog(id);
   };
 
   const toggleView = () => {
@@ -37,7 +41,12 @@ const Blog = ({ blog, updateLike, user }) => {
           </div>
           <div>{blog.author}</div>
           {blog.user.id === user.id ? (
-            <button style={{ backgroundColor: "blue" }}>delete</button>
+            <button
+              style={{ backgroundColor: "blue" }}
+              onClick={() => deleteBlog(blog.id)}
+            >
+              delete
+            </button>
           ) : null}
         </div>
       )}
