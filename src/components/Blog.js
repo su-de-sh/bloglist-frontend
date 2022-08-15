@@ -45,7 +45,7 @@ const Blog = ({ blog, updateLike, user, removeBlog }) => {
               style={{ backgroundColor: "blue" }}
               onClick={() => deleteBlog(blog.id)}
             >
-              delete
+              remove
             </button>
           ) : null}
         </div>
