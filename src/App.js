@@ -119,7 +119,7 @@ const App = () => {
   const deleteBlog = async (id) => {
     const blogToRemove = blogs.find((blog) => blog.id === id);
     const ok = window.confirm(
-      `Remove blog ${blogToRemove.id} by ${blogToRemove.author}?`
+      `Remove blog ${blogToRemove.title} by ${blogToRemove.author}?`
     );
     if (ok) {
       await blogService.remove(id);
@@ -127,7 +127,7 @@ const App = () => {
 
       setMessage({
         message: `blog ${blogToRemove.title} by ${blogToRemove.author} removed`,
-        type: "success",
+        type: "error",
       });
       setTimeout(() => {
         setMessage({ message: null, type: null });
