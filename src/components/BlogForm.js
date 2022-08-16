@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import PropTypes from "prop-types";
 export function BlogForm({ newBlog, setVisible }) {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
@@ -61,3 +62,8 @@ export function BlogForm({ newBlog, setVisible }) {
     </>
   );
 }
+
+BlogForm.propTypes = {
+  newBlog: PropTypes.func.isRequired,
+  setVisible: PropTypes.func.isRequired,
+};
