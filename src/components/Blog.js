@@ -29,7 +29,8 @@ const Blog = ({ blog, updateLike, user, removeBlog }) => {
     <>
       {!view ? (
         <div style={blogSytle}>
-          {blog.title} <button onClick={toggleView}>view</button>
+          {blog.title} {blog.author}
+          <button onClick={toggleView}>view</button>
         </div>
       ) : (
         <div style={blogSytle}>
