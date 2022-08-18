@@ -19,7 +19,40 @@ test("renders blog", () => {
   expect(div).toHaveTextContent("Robert Cmpe");
 });
 
-test("clicking the button calls event handler once", async () => {
+test("clicking the view button shows url and likes too", async () => {
+  const blog = {
+    title: "Some Blogs",
+    author: "Robert Cmpe",
+    url: "https://reacttesting.com/",
+    likes: 0,
+    user: {
+      username: "Robert Cmpe",
+      name: "Robert Cmpe",
+      id: "5e9f8f8f8f8f8f8f8f8f8f8",
+    },
+  };
+
+  const User = {
+    username: "Robert Cmpe",
+    name: "Robert Cmpe",
+    id: "5e9f8f8f8f8f8f8f8f8f8f8",
+  };
+
+  const { container } = render(<Blog blog={blog} user={User} />);
+
+  const user = userEvent.setup();
+  const button = container.querySelector(".view");
+
+  await user.click(button);
+
+  const url = container.querySelector("#url");
+
+  const likes = container.querySelector("#likes");
+  expect(url).toHaveTextContent("https://reacttesting.com/");
+  expect(likes).toHaveTextContent("likes:0");
+});
+
+test("clicking the like button twice calls event handler twice", async () => {
   const blog = {
     title: "Some Blogs",
     author: "Robert Cmpe",
@@ -40,16 +73,18 @@ test("clicking the button calls event handler once", async () => {
 
   const mockHandler = jest.fn();
 
-  const { container } = render(<Blog blog={blog} user={User} />);
+  const { container } = render(
+    <Blog blog={blog} user={User} updateLike={mockHandler} />
+  );
 
   const user = userEvent.setup();
   const button = container.querySelector(".view");
 
   await user.click(button);
+  const likeButton = container.querySelector("#likeButton");
 
-  const url = container.querySelector("#url");
+  await user.click(likeButton);
+  await user.click(likeButton);
 
-  const likes = container.querySelector("#likes");
-  expect(url).toHaveTextContent("https://reacttesting.com/");
-  expect(likes).toHaveTextContent("likes:0");
+  expect(mockHandler.mock.calls).toHaveLength(2);
 });
