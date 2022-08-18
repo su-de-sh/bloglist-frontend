@@ -1,4 +1,4 @@
-import { BlogForm } from "./components/BlogForm";
+import BlogForm from "./components/BlogForm";
 import { useState, useEffect } from "react";
 import Blog from "./components/Blog";
 import blogService from "./services/blogs";

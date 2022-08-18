@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import PropTypes from "prop-types";
-function BlogForm({ newBlog, setVisible }) {
+const BlogForm = ({ newBlog, setVisible }) => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [url, setUrl] = useState("");
@@ -66,7 +66,7 @@ function BlogForm({ newBlog, setVisible }) {
       <button onClick={() => setVisible(false)}>cancel</button>
     </>
   );
-}
+};
 
 BlogForm.propTypes = {
   newBlog: PropTypes.func.isRequired,
