@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import PropTypes from "prop-types";
-export function BlogForm({ newBlog, setVisible }) {
+function BlogForm({ newBlog, setVisible }) {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [url, setUrl] = useState("");
@@ -29,6 +29,7 @@ export function BlogForm({ newBlog, setVisible }) {
             type="text"
             name="title"
             value={title}
+            placeholder="title"
             onChange={(event) => {
               setTitle(event.target.value);
             }}
@@ -40,6 +41,7 @@ export function BlogForm({ newBlog, setVisible }) {
             type="text"
             name="author"
             value={author}
+            placeholder="author"
             onChange={(event) => {
               setAuthor(event.target.value);
             }}
@@ -51,12 +53,15 @@ export function BlogForm({ newBlog, setVisible }) {
             type="text"
             name="url"
             value={url}
+            placeholder="url"
             onChange={(event) => {
               setUrl(event.target.value);
             }}
           />
         </div>
-        <button type="submit">create</button>
+        <button id="create" type="submit">
+          create
+        </button>
       </form>
       <button onClick={() => setVisible(false)}>cancel</button>
     </>
@@ -67,3 +72,5 @@ BlogForm.propTypes = {
   newBlog: PropTypes.func.isRequired,
   setVisible: PropTypes.func.isRequired,
 };
+
+export default BlogForm;
