@@ -46,6 +46,7 @@ const App = () => {
       <div>
         username:{" "}
         <input
+          id="username"
           type="text"
           value={username}
           onChange={(event) => {
@@ -56,6 +57,7 @@ const App = () => {
       <div>
         password:{" "}
         <input
+          id="password"
           type="password"
           value={password}
           onChange={(event) => {
@@ -63,7 +65,9 @@ const App = () => {
           }}
         />
       </div>
-      <button type="submit">login</button>
+      <button id="login-button" type="submit">
+        login
+      </button>
     </form>
   );
 
@@ -145,7 +149,11 @@ const App = () => {
       {user === null ? (
         <>
           <h2>log in to application</h2>
-          <Notification message={message.message} type={message.type} />
+          <Notification
+            id="notification"
+            message={message.message}
+            type={message.type}
+          />
           {loginForm()}
         </>
       ) : (
