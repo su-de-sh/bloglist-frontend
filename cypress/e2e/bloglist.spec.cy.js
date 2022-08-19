@@ -98,24 +98,28 @@ describe("Blog app", function () {
       cy.get("#author").type("somethingmore");
       cy.get("#url").type("someting.com");
       cy.get("#create").click();
-      cy.contains("something").parent().get(".view").click();
+      cy.contains("something somethingmore").contains("view").click();
 
       // cy.contains("something").parent().contains("view").click();
       // cy.contains("something").parent().contains("like").click();
       // cy.contains("something").parent().contains("like").click();
       // cy.contains("something").parent().contains("like").click();
-      // cy.contains("like").click();
-      // cy.contains("like").click();
-      // cy.contains("like").click();
+      cy.contains("like").click();
+      cy.contains("like").click();
+      cy.contains("like").click();
+      cy.contains("like").click();
+      cy.contains("like").click();
 
-      // cy.contains("create new blog").click();
-      // cy.get("#title").type("something1");
-      // cy.get("#author").type("somethingmore1");
-      // cy.get("#url").type("someting1.com");
-      // cy.get("#create").click();
-      // cy.contains("view").click();
-      // cy.contains("like").click();
-      // cy.contains("like").click();
+      cy.contains("hide").click();
+
+      cy.contains("create new blog").click();
+      cy.get("#title").type("something1");
+      cy.get("#author").type("somethingmore1");
+      cy.get("#url").type("someting1.com");
+      cy.get("#create").click();
+      cy.contains("something1 somethingmore1").contains("view").click();
+      cy.contains("like").click();
+      cy.contains("like").click();
 
       cy.get(".blog").eq(0).should("contain", "something");
       cy.get(".blog").eq(1).should("contain", "something1");

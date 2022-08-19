@@ -24,7 +24,7 @@ const Blog = ({ blog, updateLike, user, removeBlog }) => {
     borderColor: "grey",
     marginBottom: 5,
   };
-  console.log(blog);
+
   return (
     <>
       {!view ? (
