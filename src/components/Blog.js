@@ -30,13 +30,16 @@ const Blog = ({ blog, updateLike, user, removeBlog }) => {
       {!view ? (
         <div className="blog" style={blogSytle}>
           {blog.title} {blog.author}
-          <button className="view" onClick={toggleView}>
+          <button className="view" id="view" onClick={toggleView}>
             view
           </button>
         </div>
       ) : (
         <div className="blog" style={blogSytle}>
-          {blog.title} <button onClick={toggleView}>hide</button>
+          {blog.title}{" "}
+          <button id="hide" onClick={toggleView}>
+            hide
+          </button>
           <div id="url">{blog.url}</div>
           <div id="likes">
             likes:{blog.likes}{" "}
@@ -47,6 +50,7 @@ const Blog = ({ blog, updateLike, user, removeBlog }) => {
           <div>{blog.author}</div>
           {blog.user === user.id || blog.user.id ? (
             <button
+              id="remove"
               style={{ backgroundColor: "blue" }}
               onClick={() => deleteBlog(blog.id)}
             >
