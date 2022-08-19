@@ -58,6 +58,11 @@ describe("Blog app", function () {
       cy.get("#username").type("testuser");
       cy.get("#password").type("testpassword");
       cy.get("#login-button").click();
+      cy.contains("create new blog").click();
+      cy.get("#title").type("sudesh");
+      cy.get("#author").type("sudesh");
+      cy.get("#url").type("sudesh.com");
+      cy.get("#create").click();
     });
 
     it("A blog can be created", () => {
@@ -67,6 +72,12 @@ describe("Blog app", function () {
       cy.get("#url").type("test url");
       cy.get("#create").click();
       cy.contains("test title");
+    });
+
+    it("user can like a blog", () => {
+      cy.contains("view").click();
+      cy.contains("like").click();
+      cy.contains("1");
     });
   });
 });
