@@ -29,6 +29,7 @@ const BlogForm = ({ newBlog, setVisible }) => {
             type="text"
             name="title"
             value={title}
+            id="title"
             placeholder="title"
             onChange={(event) => {
               setTitle(event.target.value);
@@ -41,6 +42,7 @@ const BlogForm = ({ newBlog, setVisible }) => {
             type="text"
             name="author"
             value={author}
+            id="author"
             placeholder="author"
             onChange={(event) => {
               setAuthor(event.target.value);
@@ -53,6 +55,7 @@ const BlogForm = ({ newBlog, setVisible }) => {
             type="text"
             name="url"
             value={url}
+            id="url"
             placeholder="url"
             onChange={(event) => {
               setUrl(event.target.value);

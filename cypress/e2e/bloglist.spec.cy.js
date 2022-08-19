@@ -55,11 +55,18 @@ describe("Blog app", function () {
 
   describe("When logged in", function () {
     beforeEach(function () {
-      // log in user here
+      cy.get("#username").type("testuser");
+      cy.get("#password").type("testpassword");
+      cy.get("#login-button").click();
     });
 
-    it("A blog can be created", function () {
-      // ...
+    it("A blog can be created", () => {
+      cy.contains("create new blog").click();
+      cy.get("#title").type("test title");
+      cy.get("#author").type("test author");
+      cy.get("#url").type("test url");
+      cy.get("#create").click();
+      cy.contains("test title");
     });
   });
 });
