@@ -25,7 +25,11 @@ const Notification = ({ message, type }) => {
   };
   const style = type === "error" ? error : success;
 
-  return <div style={style}>{message}</div>;
+  return (
+    <div className="notification" style={style}>
+      {message}
+    </div>
+  );
 };
 
 export default Notification;

@@ -15,8 +15,8 @@ const App = () => {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    window.localStorage.getItem("loggedinUser") &&
-      setUser(JSON.parse(window.localStorage.getItem("loggedinUser")));
+    const user = window.localStorage.getItem("loggedinUser");
+    setUser(JSON.parse(user));
     blogService.getAll().then((blogs) => setBlogs(blogs));
   }, []);
 
@@ -149,11 +149,7 @@ const App = () => {
       {user === null ? (
         <>
           <h2>log in to application</h2>
-          <Notification
-            id="notification"
-            message={message.message}
-            type={message.type}
-          />
+          <Notification message={message.message} type={message.type} />
           {loginForm()}
         </>
       ) : (

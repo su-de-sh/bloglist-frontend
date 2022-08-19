@@ -43,12 +43,12 @@ describe("Blog app", function () {
       cy.contains("Test User logged in");
     });
 
-    it("fails with wrong credentials", function () {
+    it.only("fails with wrong credentials", function () {
       cy.get("#username").type("testuser");
       cy.get("#password").type("testpssword");
       cy.get("#login-button").click();
 
-      // cy.get("#notification").should("have.css", "color", "red");
+      cy.get(".notification").should("have.css", "color", "rgb(255, 0, 0)");
       cy.contains("wrong credentials");
     });
   });
@@ -78,6 +78,18 @@ describe("Blog app", function () {
       cy.contains("view").click();
       cy.contains("like").click();
       cy.contains("1");
+    });
+
+    it("user can delete a blog", () => {
+      cy.contains("create new blog").click();
+      cy.get("#title").type("something");
+      cy.get("#author").type("somethingmore");
+      cy.get("#url").type("someting.com");
+      cy.get("#create").click();
+
+      cy.contains("view").click();
+      cy.contains("remove").click();
+      cy.contains("something").should("not.exist");
     });
   });
 });

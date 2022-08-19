@@ -24,7 +24,7 @@ const Blog = ({ blog, updateLike, user, removeBlog }) => {
     borderColor: "grey",
     marginBottom: 5,
   };
-
+  console.log(blog);
   return (
     <>
       {!view ? (
@@ -45,7 +45,7 @@ const Blog = ({ blog, updateLike, user, removeBlog }) => {
             </button>
           </div>
           <div>{blog.author}</div>
-          {blog.user.id === user.id ? (
+          {blog.user === user.id || blog.user.id ? (
             <button
               style={{ backgroundColor: "blue" }}
               onClick={() => deleteBlog(blog.id)}
