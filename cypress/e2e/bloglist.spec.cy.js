@@ -104,11 +104,14 @@ describe("Blog app", function () {
       // cy.get(".blog").contains("something").contains("view").click();
       cy.get(".blog").should("contain", "something");
       cy.get(".blog").contains("something").contains("view").click();
-      cy.contains("like").click();
-      cy.contains("like").click();
-      cy.contains("like").click();
-      cy.contains("like").click();
-      cy.contains("like").click();
+      cy.get("#likeButton").click();
+      cy.get("#like").should("contain", "1");
+      cy.get("#likeButton").click();
+      cy.get("#like").should("contain", "2");
+      cy.get("#likeButton").click();
+      cy.get("#like").should("contain", "3");
+      cy.get("#likeButton").click();
+      cy.get("#like").should("contain", "4");
 
       cy.contains("hide").click();
 
@@ -118,8 +121,12 @@ describe("Blog app", function () {
       cy.get("#url").type("someting1.com");
       cy.get("#create").click();
       cy.contains("something1 somethingmore1").contains("view").click();
-      cy.contains("like").click();
-      cy.contains("like").click();
+      cy.get("#likeButton").click();
+      cy.get("#like").should("contain", "1");
+      cy.get("#likeButton").click();
+      cy.get("#like").should("contain", "2");
+      cy.get("#likeButton").click();
+      cy.get("#like").should("contain", "3");
 
       cy.get(".blog").eq(0).should("contain", "something");
       cy.get(".blog").eq(1).should("contain", "something1");

@@ -41,7 +41,7 @@ const Blog = ({ blog, updateLike, user, removeBlog }) => {
             hide
           </button>
           <div id="url">{blog.url}</div>
-          <div id="likes">
+          <div id="like">
             likes:{blog.likes}{" "}
             <button id="likeButton" onClick={() => increaseLike(blog.id)}>
               like
