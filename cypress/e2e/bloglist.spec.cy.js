@@ -98,12 +98,12 @@ describe("Blog app", function () {
       cy.get("#author").type("somethingmore");
       cy.get("#url").type("someting.com");
       cy.get("#create").click();
-      cy.contains("something somethingmore").contains("view").click();
 
-      // cy.contains("something").parent().contains("view").click();
-      // cy.contains("something").parent().contains("like").click();
-      // cy.contains("something").parent().contains("like").click();
-      // cy.contains("something").parent().contains("like").click();
+      // adding exact text to cy.contains() to make sure that it wont match the text of the notification
+      // cy.contains("something somethingmore").contains("view").click();
+      // cy.get(".blog").contains("something").contains("view").click();
+      cy.get(".blog").should("contain", "something");
+      cy.get(".blog").contains("something").contains("view").click();
       cy.contains("like").click();
       cy.contains("like").click();
       cy.contains("like").click();

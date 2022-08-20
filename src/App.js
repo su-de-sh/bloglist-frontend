@@ -89,12 +89,12 @@ const App = () => {
 
       setTimeout(() => {
         setMessage({ message: null, type: null });
-      }, 5000);
+      }, 2000);
     } catch (exception) {
       setMessage({ message: exception.response.data.error, type: "error" });
       setTimeout(() => {
         setMessage({ message: null, type: null });
-      }, 5000);
+      }, 2000);
     }
   };
 
@@ -116,7 +116,7 @@ const App = () => {
       setMessage({ message: exception.response.data.error, type: "error" });
       setTimeout(() => {
         setMessage({ message: null, type: null });
-      }, 5000);
+      }, 2000);
     }
   };
 
@@ -135,7 +135,7 @@ const App = () => {
       });
       setTimeout(() => {
         setMessage({ message: null, type: null });
-      }, 5000);
+      }, 2000);
     }
   };
 
