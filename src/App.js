@@ -4,14 +4,17 @@ import Blog from "./components/Blog";
 import blogService from "./services/blogs";
 import loginService from "./services/login";
 import Notification from "./components/Notification";
+import { useDispatch } from "react-redux";
+import { setNotification } from "./reducers/notificationReducer";
 
 const App = () => {
+  const dispatch = useDispatch();
   const [blogs, setBlogs] = useState([]);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
 
-  const [message, setMessage] = useState({ message: null, type: null });
+  // const [message, setMessage] = useState({ message: null, type: null });
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -34,9 +37,19 @@ const App = () => {
       setUsername("");
       setPassword("");
     } catch (exception) {
-      setMessage({ message: exception.response.data.error, type: "error" });
+      dispatch(
+        setNotification({
+          message: exception.response.data.error,
+          type: "error",
+        })
+      );
       setTimeout(() => {
-        setMessage({ message: null, type: null });
+        dispatch(
+          setNotification({
+            message: null,
+            type: null,
+          })
+        );
       }, 5000);
     }
   };
@@ -82,18 +95,30 @@ const App = () => {
       const returnedBlog = await blogService.create(blogObject);
       setBlogs(blogs.concat(returnedBlog));
 
-      setMessage({
-        message: `a new blog ${returnedBlog.title} by ${returnedBlog.author} added`,
-        type: "success",
-      });
+      dispatch(
+        setNotification({
+          message: `a new blog ${returnedBlog.title} by ${returnedBlog.author} added`,
+          type: "success",
+        })
+      );
 
       setTimeout(() => {
-        setMessage({ message: null, type: null });
+        dispatch(
+          setNotification({
+            message: null,
+            type: null,
+          })
+        );
       }, 2000);
     } catch (exception) {
-      setMessage({ message: exception.response.data.error, type: "error" });
+      dispatch(
+        setNotification({
+          message: exception.response.data.error,
+          type: "error",
+        })
+      );
       setTimeout(() => {
-        setMessage({ message: null, type: null });
+        dispatch(setNotification({ message: null, type: null }));
       }, 2000);
     }
   };
@@ -113,9 +138,14 @@ const App = () => {
 
       setBlogs(blogs.map((blog) => (blog.id === id ? response : blog)));
     } catch (exception) {
-      setMessage({ message: exception.response.data.error, type: "error" });
+      dispatch(
+        setNotification({
+          message: exception.response.data.error,
+          type: "error",
+        })
+      );
       setTimeout(() => {
-        setMessage({ message: null, type: null });
+        dispatch(setNotification({ message: null, type: null }));
       }, 2000);
     }
   };
@@ -129,12 +159,14 @@ const App = () => {
       await blogService.remove(id);
       setBlogs(blogs.filter((blog) => blog.id !== id));
 
-      setMessage({
-        message: `blog ${blogToRemove.title} by ${blogToRemove.author} removed`,
-        type: "error",
-      });
+      dispatch(
+        setNotification({
+          message: `blog ${blogToRemove.title} by ${blogToRemove.author} removed`,
+          type: "error",
+        })
+      );
       setTimeout(() => {
-        setMessage({ message: null, type: null });
+        dispatch(setNotification({ message: null, type: null }));
       }, 2000);
     }
   };
@@ -149,13 +181,13 @@ const App = () => {
       {user === null ? (
         <>
           <h2>log in to application</h2>
-          <Notification message={message.message} type={message.type} />
+          <Notification />
           {loginForm()}
         </>
       ) : (
         <>
           <h2>blogs</h2>
-          <Notification message={message.message} type={message.type} />
+          <Notification />
           <span>{user.name} logged in </span>
           <button onClick={handleLogout}>logout</button>
           {visible ? (
