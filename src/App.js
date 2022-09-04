@@ -1,15 +1,23 @@
 import BlogForm from "./components/BlogForm";
 import { useState, useEffect } from "react";
 import Blog from "./components/Blog";
-import blogService from "./services/blogs";
+// import blogService from "./services/blogs";
 import loginService from "./services/login";
 import Notification from "./components/Notification";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setNotification } from "./reducers/notificationReducer";
+import {
+  createBlogs,
+  deleteBlogs,
+  initializeBlogs,
+  updateLikes,
+} from "./reducers/blogReducer";
 
 const App = () => {
   const dispatch = useDispatch();
-  const [blogs, setBlogs] = useState([]);
+  const blogs = useSelector((state) => state.blogs);
+  // console.log(blogs);
+  // const [blogs, setBlogs] = useState([]);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
@@ -20,7 +28,8 @@ const App = () => {
   useEffect(() => {
     const user = window.localStorage.getItem("loggedinUser");
     setUser(JSON.parse(user));
-    blogService.getAll().then((blogs) => setBlogs(blogs));
+    // blogService.getAll().then((blogs) => setBlogs(blogs));
+    dispatch(initializeBlogs());
   }, []);
 
   const handleLogin = async (event) => {
@@ -92,15 +101,8 @@ const App = () => {
   const handleBlogCreation = async (blogObject) => {
     try {
       setVisible(false);
-      const returnedBlog = await blogService.create(blogObject);
-      setBlogs(blogs.concat(returnedBlog));
 
-      dispatch(
-        setNotification({
-          message: `a new blog ${returnedBlog.title} by ${returnedBlog.author} added`,
-          type: "success",
-        })
-      );
+      dispatch(createBlogs(blogObject));
 
       setTimeout(() => {
         dispatch(
@@ -134,10 +136,12 @@ const App = () => {
         url: blogToUpdate.url,
       };
       // console.log("updated blog", id, newBlogObject);
-      const response = await blogService.update(id, newBlogObject);
+      // const response = await blogService.update(id, newBlogObject);
 
-      setBlogs(blogs.map((blog) => (blog.id === id ? response : blog)));
+      // setBlogs(blogs.map((blog) => (blog.id === id ? response : blog)));
+      dispatch(updateLikes(id, newBlogObject));
     } catch (exception) {
+      console.log("in exception");
       dispatch(
         setNotification({
           message: exception.response.data.error,
@@ -155,9 +159,9 @@ const App = () => {
     const ok = window.confirm(
       `Remove blog ${blogToRemove.title} by ${blogToRemove.author}?`
     );
+
     if (ok) {
-      await blogService.remove(id);
-      setBlogs(blogs.filter((blog) => blog.id !== id));
+      dispatch(deleteBlogs(id));
 
       dispatch(
         setNotification({
@@ -175,7 +179,7 @@ const App = () => {
     <BlogForm setVisible={setVisible} newBlog={handleBlogCreation} />
   );
 
-  const sortedBlogs = blogs.sort((a, b) => b.likes - a.likes);
+  const sortedBlogs = [...blogs].sort((a, b) => b.likes - a.likes);
   return (
     <div>
       {user === null ? (

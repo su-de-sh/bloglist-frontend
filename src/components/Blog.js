@@ -3,6 +3,7 @@ const Blog = ({ blog, updateLike, user, removeBlog }) => {
   const [view, setView] = useState(false);
 
   const increaseLike = (id) => {
+    // console.log("id", id);
     updateLike(id, blog.likes + 1);
   };
 
