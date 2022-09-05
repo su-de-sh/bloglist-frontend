@@ -23,6 +23,7 @@ const App = () => {
   const [password, setPassword] = useState("");
   // const [user, setUser] = useState(null);
   const user = useSelector((state) => state.user);
+  // console.log(user);
 
   // const [message, setMessage] = useState({ message: null, type: null });
   const [visible, setVisible] = useState(false);

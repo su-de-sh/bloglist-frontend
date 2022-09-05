@@ -49,7 +49,7 @@ const Blog = ({ blog, updateLike, user, removeBlog }) => {
             </button>
           </div>
           <div>{blog.author}</div>
-          {blog.user === user.id || blog.user.id ? (
+          {blog.user.id === user.id ? (
             <button
               id="remove"
               style={{ backgroundColor: "blue" }}
