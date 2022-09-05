@@ -13,6 +13,8 @@ import {
   updateLikes,
 } from "./reducers/blogReducer";
 import { setUsers } from "./reducers/userReducer";
+import { Link, Route, Routes } from "react-router-dom";
+import User from "./components/User";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -184,44 +186,88 @@ const App = () => {
   );
 
   const sortedBlogs = [...blogs].sort((a, b) => b.likes - a.likes);
-  return (
-    <div>
-      {user === null ? (
-        <>
-          <h2>log in to application</h2>
-          <Notification />
-          {loginForm()}
-        </>
-      ) : (
-        <>
-          <h2>blogs</h2>
-          <Notification />
-          <span>{user.name} logged in </span>
-          <button onClick={handleLogout}>logout</button>
-          {visible ? (
-            createBlogForm()
-          ) : (
-            <div style={{ marginTop: 25, marginBottom: 10 }}>
-              <button
-                onClick={() => {
-                  setVisible(true);
+
+  function Home({
+    user,
+    loginForm,
+    handleLogout,
+    visible,
+    createBlogForm,
+    setVisible,
+    sortedBlogs,
+    updateLike,
+    deleteBlog,
+  }) {
+    return (
+      <div>
+        {user === null ? (
+          <>
+            <h2>log in to application</h2>
+            <Notification />
+            {loginForm()}
+          </>
+        ) : (
+          <>
+            <h2>blogs</h2>
+            <Notification />
+            <span>
+              {" "}
+              <Link to="/user">{user.name}</Link> logged in{" "}
+            </span>
+            <button onClick={handleLogout}>logout</button>
+            {visible ? (
+              createBlogForm()
+            ) : (
+              <div
+                style={{
+                  marginTop: 25,
+                  marginBottom: 10,
                 }}
               >
-                create new blog
-              </button>
-            </div>
-          )}
-          {sortedBlogs.map((blog) => (
-            <Blog
-              key={blog.id}
-              blog={blog}
-              updateLike={updateLike}
-              removeBlog={deleteBlog}
+                <button
+                  onClick={() => {
+                    setVisible(true);
+                  }}
+                >
+                  create new blog
+                </button>
+              </div>
+            )}
+            {sortedBlogs.map((blog) => (
+              <Blog
+                key={blog.id}
+                blog={blog}
+                updateLike={updateLike}
+                removeBlog={deleteBlog}
+                user={user}
+              />
+            ))}
+          </>
+        )}
+      </div>
+    );
+  }
+  return (
+    <div>
+      <Routes>
+        <Route path="/user" element={<User />} />
+        <Route
+          path="/"
+          element={
+            <Home
               user={user}
+              loginForm={loginForm}
+              handleLogout={handleLogout}
+              visible={visible}
+              createBlogForm={createBlogForm}
+              setVisible={setVisible}
+              sortedBlogs={sortedBlogs}
+              updateLike={updateLike}
+              deleteBlog={deleteBlog}
             />
-          ))}
-        </>
-      )}
+          }
+        ></Route>
+      </Routes>
     </div>
   );
 };
