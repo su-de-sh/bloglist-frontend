@@ -12,6 +12,7 @@ import {
   initializeBlogs,
   updateLikes,
 } from "./reducers/blogReducer";
+import { setUsers } from "./reducers/userReducer";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -20,20 +21,22 @@ const App = () => {
   // const [blogs, setBlogs] = useState([]);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [user, setUser] = useState(null);
+  // const [user, setUser] = useState(null);
+  const user = useSelector((state) => state.user);
 
   // const [message, setMessage] = useState({ message: null, type: null });
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const user = window.localStorage.getItem("loggedinUser");
-    setUser(JSON.parse(user));
+    dispatch(setUsers(JSON.parse(user)));
     // blogService.getAll().then((blogs) => setBlogs(blogs));
     dispatch(initializeBlogs());
   }, []);
 
   const handleLogin = async (event) => {
     event.preventDefault();
+
     try {
       const user = await loginService.login({
         username,
@@ -42,7 +45,8 @@ const App = () => {
 
       window.localStorage.setItem("loggedinUser", JSON.stringify(user));
       // console.log(user);
-      setUser(user);
+      // setUser(user);
+      dispatch(setUsers(user));
       setUsername("");
       setPassword("");
     } catch (exception) {
@@ -95,7 +99,7 @@ const App = () => {
 
   const handleLogout = () => {
     window.localStorage.removeItem("loggedinUser");
-    setUser(null);
+    dispatch(setUsers(null));
   };
 
   const handleBlogCreation = async (blogObject) => {
@@ -141,7 +145,6 @@ const App = () => {
       // setBlogs(blogs.map((blog) => (blog.id === id ? response : blog)));
       dispatch(updateLikes(id, newBlogObject));
     } catch (exception) {
-      console.log("in exception");
       dispatch(
         setNotification({
           message: exception.response.data.error,
