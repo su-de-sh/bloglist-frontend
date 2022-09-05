@@ -1,7 +1,12 @@
 import React from "react";
+import { UserInfo } from "./UserInfo";
 
-const User = () => {
-  return <div>User</div>;
+const User = ({ handleLogout }) => {
+  return (
+    <div>
+      <UserInfo handleLogout={handleLogout} />
+    </div>
+  );
 };
 
 export default User;

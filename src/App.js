@@ -13,8 +13,9 @@ import {
   updateLikes,
 } from "./reducers/blogReducer";
 import { setUsers } from "./reducers/userReducer";
-import { Link, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import User from "./components/User";
+import { UserInfo } from "./components/UserInfo";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -200,21 +201,16 @@ const App = () => {
   }) {
     return (
       <div>
+        <Notification />
         {user === null ? (
           <>
             <h2>log in to application</h2>
-            <Notification />
+
             {loginForm()}
           </>
         ) : (
           <>
-            <h2>blogs</h2>
-            <Notification />
-            <span>
-              {" "}
-              <Link to="/user">{user.name}</Link> logged in{" "}
-            </span>
-            <button onClick={handleLogout}>logout</button>
+            <UserInfo handleLogout={handleLogout} />
             {visible ? (
               createBlogForm()
             ) : (
@@ -250,7 +246,7 @@ const App = () => {
   return (
     <div>
       <Routes>
-        <Route path="/user" element={<User />} />
+        <Route path="/users" element={<User />} />
         <Route
           path="/"
           element={
