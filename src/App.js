@@ -13,7 +13,7 @@ import {
   updateLikes,
 } from "./reducers/blogReducer";
 import { setUsers } from "./reducers/userReducer";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import User from "./components/User";
 import { UserInfo } from "./components/UserInfo";
 
@@ -30,6 +30,8 @@ const App = () => {
 
   // const [message, setMessage] = useState({ message: null, type: null });
   const [visible, setVisible] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const user = window.localStorage.getItem("loggedinUser");
@@ -104,6 +106,7 @@ const App = () => {
   const handleLogout = () => {
     window.localStorage.removeItem("loggedinUser");
     dispatch(setUsers(null));
+    navigate("/");
   };
 
   const handleBlogCreation = async (blogObject) => {
@@ -246,7 +249,7 @@ const App = () => {
   return (
     <div>
       <Routes>
-        <Route path="/users" element={<User />} />
+        <Route path="/users" element={<User handleLogout={handleLogout} />} />
         <Route
           path="/"
           element={
