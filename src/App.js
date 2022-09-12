@@ -19,6 +19,7 @@ import User from "./components/User";
 import { UserInfo } from "./components/UserInfo";
 import UserDetails from "./components/UserDetails";
 import BlogDetail from "./components/BlogDetail";
+import { Container } from "@mui/material";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -231,7 +232,6 @@ const App = () => {
   }) {
     return (
       <div>
-        <Notification />
         {user === null ? (
           <>
             <h2>log in to application</h2>
@@ -279,7 +279,8 @@ const App = () => {
     padding: 5,
   };
   return (
-    <div>
+    <Container>
+      <Notification />
       <div style={{ backgroundColor: "#add8e6", padding: "8px" }}>
         <Link style={padding} to="/">
           blogs
@@ -366,7 +367,7 @@ const App = () => {
           </>
         )}
       </div> */}
-    </div>
+    </Container>
   );
 };
 

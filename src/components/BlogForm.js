@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import PropTypes from "prop-types";
+import { Button, TextField } from "@mui/material";
 const BlogForm = ({ newBlog, setVisible }) => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
@@ -20,12 +21,12 @@ const BlogForm = ({ newBlog, setVisible }) => {
   };
 
   return (
-    <>
+    <div style={{ marginBottom: "20px" }}>
       <h2>create new</h2>
       <form onSubmit={handleBlogCreation}>
         <div>
-          title:{" "}
-          <input
+          <TextField
+            size="small"
             type="text"
             name="title"
             value={title}
@@ -37,8 +38,8 @@ const BlogForm = ({ newBlog, setVisible }) => {
           />
         </div>
         <div>
-          author:{" "}
-          <input
+          <TextField
+            size="small"
             type="text"
             name="author"
             value={author}
@@ -50,8 +51,8 @@ const BlogForm = ({ newBlog, setVisible }) => {
           />
         </div>
         <div>
-          url:{" "}
-          <input
+          <TextField
+            size="small"
             type="text"
             name="url"
             value={url}
@@ -62,12 +63,13 @@ const BlogForm = ({ newBlog, setVisible }) => {
             }}
           />
         </div>
-        <button id="create" type="submit">
+
+        <Button variant="contained" id="create" type="submit">
           create
-        </button>
+        </Button>
+        <Button onClick={() => setVisible(false)}>cancel</Button>
       </form>
-      <button onClick={() => setVisible(false)}>cancel</button>
-    </>
+    </div>
   );
 };
 
