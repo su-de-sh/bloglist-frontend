@@ -19,7 +19,8 @@ import User from "./components/User";
 import { UserInfo } from "./components/UserInfo";
 import UserDetails from "./components/UserDetails";
 import BlogDetail from "./components/BlogDetail";
-import { Container } from "@mui/material";
+import { Button, Container, TextField } from "@mui/material";
+import React from "react";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -99,35 +100,42 @@ const App = () => {
 
   const LoginForm = () => (
     <form onSubmit={handleLogin}>
-      <div>
-        username:{" "}
-        <input
-          id="username"
-          type="text"
-          name="username"
-          // value={username}
+      <TextField
+        style={{ marginTop: "20px", display: "block" }}
+        size="small"
+        id="username"
+        type="text"
+        name="username"
+        label="username"
+        // value={username}
 
-          // onChange={(event) => {
-          //   console.log(event.target.value);
-          //   setUsername(event.target.value);
-          // }}
-        />
-      </div>
-      <div>
-        password:{" "}
-        <input
-          id="password"
-          type="password"
-          name="password"
-          // value={password}
-          // onChange={(event) => {
-          //   setPassword(event.target.value);
-          // }}
-        />
-      </div>
-      <button id="login-button" type="submit">
+        // onChange={(event) => {
+        //   console.log(event.target.value);
+        //   setUsername(event.target.value);
+        // }}
+      />
+
+      <TextField
+        style={{ marginTop: "20px", display: "block" }}
+        size="small"
+        label="password"
+        id="password"
+        type="password"
+        name="password"
+        // value={password}
+        // onChange={(event) => {
+        //   setPassword(event.target.value);
+        // }}
+      />
+
+      <Button
+        style={{ marginTop: "20px" }}
+        variant="contained"
+        id="login-button"
+        type="submit"
+      >
         login
-      </button>
+      </Button>
     </form>
   );
 

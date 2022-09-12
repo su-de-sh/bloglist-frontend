@@ -26,12 +26,13 @@ const BlogForm = ({ newBlog, setVisible }) => {
       <form onSubmit={handleBlogCreation}>
         <div>
           <TextField
+            style={{ marginTop: "20px", display: "block" }}
             size="small"
             type="text"
             name="title"
             value={title}
             id="title"
-            placeholder="title"
+            label="title"
             onChange={(event) => {
               setTitle(event.target.value);
             }}
@@ -39,12 +40,13 @@ const BlogForm = ({ newBlog, setVisible }) => {
         </div>
         <div>
           <TextField
+            style={{ marginTop: "20px", display: "block" }}
             size="small"
             type="text"
             name="author"
             value={author}
             id="author"
-            placeholder="author"
+            label="author"
             onChange={(event) => {
               setAuthor(event.target.value);
             }}
@@ -52,22 +54,24 @@ const BlogForm = ({ newBlog, setVisible }) => {
         </div>
         <div>
           <TextField
+            style={{ marginTop: "20px", display: "block" }}
             size="small"
             type="text"
             name="url"
             value={url}
             id="url"
-            placeholder="url"
+            label="url"
             onChange={(event) => {
               setUrl(event.target.value);
             }}
           />
         </div>
-
-        <Button variant="contained" id="create" type="submit">
-          create
-        </Button>
-        <Button onClick={() => setVisible(false)}>cancel</Button>
+        <div style={{ marginTop: "20px", display: "block" }}>
+          <Button variant="contained" id="create" type="submit">
+            create
+          </Button>
+          <Button onClick={() => setVisible(false)}>cancel</Button>
+        </div>
       </form>
     </div>
   );
