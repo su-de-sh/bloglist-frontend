@@ -25,9 +25,9 @@ const App = () => {
   const blogs = useSelector((state) => state.blogs);
   // console.log(blogs);
   // const [blogs, setBlogs] = useState([]);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  // const [user, setUser] = useState(null);
+  // const [username, setUsername] = useState("");
+  // const [password, setPassword] = useState("");
+  // // const [user, setUser] = useState(null);
   const user = useSelector((state) => state.user);
   // console.log(user);
 
@@ -63,6 +63,8 @@ const App = () => {
 
   const handleLogin = async (event) => {
     event.preventDefault();
+    const username = event.target.username.value;
+    const password = event.target.password.value;
 
     try {
       const user = await loginService.login({
@@ -74,8 +76,8 @@ const App = () => {
       // console.log(user);
       // setUser(user);
       dispatch(setUsers(user));
-      setUsername("");
-      setPassword("");
+      // setUsername("");
+      // setPassword("");
     } catch (exception) {
       dispatch(
         setNotification({
@@ -94,17 +96,20 @@ const App = () => {
     }
   };
 
-  const loginForm = () => (
+  const LoginForm = () => (
     <form onSubmit={handleLogin}>
       <div>
         username:{" "}
         <input
           id="username"
           type="text"
-          value={username}
-          onChange={(event) => {
-            setUsername(event.target.value);
-          }}
+          name="username"
+          // value={username}
+
+          // onChange={(event) => {
+          //   console.log(event.target.value);
+          //   setUsername(event.target.value);
+          // }}
         />
       </div>
       <div>
@@ -112,10 +117,11 @@ const App = () => {
         <input
           id="password"
           type="password"
-          value={password}
-          onChange={(event) => {
-            setPassword(event.target.value);
-          }}
+          name="password"
+          // value={password}
+          // onChange={(event) => {
+          //   setPassword(event.target.value);
+          // }}
         />
       </div>
       <button id="login-button" type="submit">
@@ -214,7 +220,7 @@ const App = () => {
 
   function Home({
     user,
-    loginForm,
+    // loginForm,
     handleLogout,
     visible,
     createBlogForm,
@@ -230,7 +236,8 @@ const App = () => {
           <>
             <h2>log in to application</h2>
 
-            {loginForm()}
+            {/* {loginForm()} */}
+            <LoginForm />
           </>
         ) : (
           <>
@@ -274,7 +281,10 @@ const App = () => {
           path="/users"
           element={<User handleLogout={handleLogout} userList={userList} />}
         />
-        <Route path="/users/:id" element={<UserDetails user={oneUSer} />} />
+        <Route
+          path="/users/:id"
+          element={<UserDetails user={oneUSer} handleLogout={handleLogout} />}
+        />
         <Route
           path="/blogs/:id"
           element={
@@ -290,7 +300,7 @@ const App = () => {
           element={
             <Home
               user={user}
-              loginForm={loginForm}
+              // loginForm={loginForm}
               handleLogout={handleLogout}
               visible={visible}
               createBlogForm={createBlogForm}
@@ -302,6 +312,47 @@ const App = () => {
           }
         ></Route>
       </Routes>
+      {/* <div>
+        <Notification />
+        {user === null ? (
+          <>
+            <h2>log in to application</h2>
+
+            {loginForm()}
+          </>
+        ) : (
+          <>
+            <UserInfo handleLogout={handleLogout} />
+            {visible ? (
+              createBlogForm()
+            ) : (
+              <div
+                style={{
+                  marginTop: 25,
+                  marginBottom: 10,
+                }}
+              >
+                <button
+                  onClick={() => {
+                    setVisible(true);
+                  }}
+                >
+                  create new blog
+                </button>
+              </div>
+            )}
+            {sortedBlogs.map((blog) => (
+              <Blog
+                key={blog.id}
+                blog={blog}
+                updateLike={updateLike}
+                removeBlog={deleteBlog}
+                user={user}
+              />
+            ))}
+          </>
+        )}
+      </div> */}
     </div>
   );
 };
