@@ -19,7 +19,7 @@ import User from "./components/User";
 import { UserInfo } from "./components/UserInfo";
 import UserDetails from "./components/UserDetails";
 import BlogDetail from "./components/BlogDetail";
-import { Button, Container, TextField } from "@mui/material";
+import { AppBar, Button, Container, TextField, Toolbar } from "@mui/material";
 import React from "react";
 
 const App = () => {
@@ -283,21 +283,43 @@ const App = () => {
       </div>
     );
   }
-  const padding = {
+  const style = {
     padding: 5,
+    textDecoration: "none",
+    fontWeight: "bold",
   };
   return (
     <Container>
       <Notification />
-      <div style={{ backgroundColor: "#add8e6", padding: "8px" }}>
-        <Link style={padding} to="/">
-          blogs
-        </Link>
-        <Link style={padding} to="/users">
-          users
-        </Link>
-        <UserInfo handleLogout={handleLogout} />
-      </div>
+
+      <AppBar
+        position="static"
+        style={{ backgroundColor: "#add8e6", padding: "8px" }}
+      >
+        <Container maxWidth="xl">
+          <Toolbar disableGutters>
+            <div>
+              <Link style={style} to="/">
+                Blogs
+              </Link>
+              <Link style={style} to="/users">
+                Users
+              </Link>
+              <span
+                style={{
+                  position: "absolute",
+                  right: "0px",
+                  fontWeight: "bold",
+                  color: "black",
+                }}
+              >
+                <UserInfo handleLogout={handleLogout} />
+              </span>
+            </div>{" "}
+          </Toolbar>
+        </Container>
+      </AppBar>
+
       <Routes>
         <Route
           path="/users"

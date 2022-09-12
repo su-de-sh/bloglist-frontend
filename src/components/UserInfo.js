@@ -6,8 +6,8 @@ export function UserInfo({ handleLogout }) {
   const user = useSelector((state) => state.user);
   if (!user) return null;
   return (
-    <span>
+    <>
       {user.name} logged in <button onClick={handleLogout}>logout</button>
-    </span>
+    </>
   );
 }
