@@ -1,12 +1,19 @@
 import React from "react";
+import { UserInfo } from "./UserInfo";
 
-const UserDetails = ({ user }) => {
+const UserDetails = ({ user, handleLogout }) => {
   return (
     <div>
-      {user.name}
-      <div>{user.username}</div>
-      {user.blogs.length &&
-        user.blogs.map((blog, index) => <div key={index}>{blog.title}</div>)}
+      <UserInfo handleLogout={handleLogout} />
+      <h1>{user.name}</h1>
+      <strong>added blogs</strong>
+      {user.blogs && (
+        <ul>
+          {user.blogs.map((blog, index) => (
+            <li key={index}>{blog.title}</li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };
