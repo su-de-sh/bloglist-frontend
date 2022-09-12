@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Blog from "./components/Blog";
 // import blogService from "./services/blogs";
 import loginService from "./services/login";
+import userListService from "./services/users";
 import Notification from "./components/Notification";
 import { useDispatch, useSelector } from "react-redux";
 import { setNotification } from "./reducers/notificationReducer";
@@ -31,6 +32,7 @@ const App = () => {
   // const [message, setMessage] = useState({ message: null, type: null });
   const [visible, setVisible] = useState(false);
 
+  const [userList, setUserList] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -38,6 +40,12 @@ const App = () => {
     dispatch(setUsers(JSON.parse(user)));
     // blogService.getAll().then((blogs) => setBlogs(blogs));
     dispatch(initializeBlogs());
+  }, []);
+
+  useEffect(() => {
+    userListService.getAll().then((result) => {
+      setUserList(result);
+    });
   }, []);
 
   const handleLogin = async (event) => {
@@ -249,7 +257,10 @@ const App = () => {
   return (
     <div>
       <Routes>
-        <Route path="/users" element={<User handleLogout={handleLogout} />} />
+        <Route
+          path="/users"
+          element={<User handleLogout={handleLogout} userList={userList} />}
+        />
         <Route
           path="/"
           element={
