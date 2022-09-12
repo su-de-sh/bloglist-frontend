@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 const Blog = ({ blog, updateLike, user, removeBlog }) => {
   const [view, setView] = useState(false);
 
@@ -30,14 +31,17 @@ const Blog = ({ blog, updateLike, user, removeBlog }) => {
     <>
       {!view ? (
         <div className="blog" style={blogSytle}>
-          {blog.title} {blog.author}
+          <Link to={`/blogs/${blog.id}`}>
+            {blog.title} {blog.author}
+          </Link>
+
           <button className="view" id="view" onClick={toggleView}>
             view
           </button>
         </div>
       ) : (
         <div className="blog" style={blogSytle}>
-          {blog.title}{" "}
+          <Link to={`/blogs/${blog.id}`}>{blog.title}</Link>
           <button id="hide" onClick={toggleView}>
             hide
           </button>

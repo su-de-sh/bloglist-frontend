@@ -14,9 +14,11 @@ import {
   updateLikes,
 } from "./reducers/blogReducer";
 import { setUsers } from "./reducers/userReducer";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes, useMatch, useNavigate } from "react-router-dom";
 import User from "./components/User";
 import { UserInfo } from "./components/UserInfo";
+import UserDetails from "./components/UserDetails";
+import BlogDetail from "./components/BlogDetail";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -47,6 +49,17 @@ const App = () => {
       setUserList(result);
     });
   }, []);
+  const matchUser = useMatch("/users/:id");
+  const oneUSer = matchUser
+    ? userList.find((user) => {
+        return user.id === matchUser.params.id;
+      })
+    : null;
+
+  const matchBlog = useMatch("/blogs/:id");
+  const oneBlog = matchBlog
+    ? blogs.find((blog) => blog.id === matchBlog.params.id)
+    : null;
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -260,6 +273,17 @@ const App = () => {
         <Route
           path="/users"
           element={<User handleLogout={handleLogout} userList={userList} />}
+        />
+        <Route path="/users/:id" element={<UserDetails user={oneUSer} />} />
+        <Route
+          path="/blogs/:id"
+          element={
+            <BlogDetail
+              blog={oneBlog}
+              updateLike={updateLike}
+              handleLogout={handleLogout}
+            />
+          }
         />
         <Route
           path="/"
