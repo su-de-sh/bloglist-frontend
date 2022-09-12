@@ -1,11 +1,11 @@
 import React from "react";
-import { UserInfo } from "./UserInfo";
+// import { UserInfo } from "./UserInfo";
 
-const UserDetails = ({ user, handleLogout }) => {
+const UserDetails = ({ user }) => {
   if (!user) return null;
   return (
     <div>
-      <UserInfo handleLogout={handleLogout} />
+      {/* <UserInfo handleLogout={handleLogout} /> */}
       <h1>{user.name}</h1>
       <strong>added blogs</strong>
       {user.blogs && (

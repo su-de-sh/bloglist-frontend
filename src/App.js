@@ -14,7 +14,7 @@ import {
   updateLikes,
 } from "./reducers/blogReducer";
 import { setUsers } from "./reducers/userReducer";
-import { Route, Routes, useMatch, useNavigate } from "react-router-dom";
+import { Link, Route, Routes, useMatch, useNavigate } from "react-router-dom";
 import User from "./components/User";
 import { UserInfo } from "./components/UserInfo";
 import UserDetails from "./components/UserDetails";
@@ -221,7 +221,7 @@ const App = () => {
   function Home({
     user,
     // loginForm,
-    handleLogout,
+
     visible,
     createBlogForm,
     setVisible,
@@ -241,7 +241,8 @@ const App = () => {
           </>
         ) : (
           <>
-            <UserInfo handleLogout={handleLogout} />
+            <h1>blog app</h1>
+
             {visible ? (
               createBlogForm()
             ) : (
@@ -274,8 +275,20 @@ const App = () => {
       </div>
     );
   }
+  const padding = {
+    padding: 5,
+  };
   return (
     <div>
+      <div style={{ backgroundColor: "#add8e6", padding: "8px" }}>
+        <Link style={padding} to="/">
+          blogs
+        </Link>
+        <Link style={padding} to="/users">
+          users
+        </Link>
+        <UserInfo handleLogout={handleLogout} />
+      </div>
       <Routes>
         <Route
           path="/users"

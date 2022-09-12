@@ -1,14 +1,14 @@
 import React from "react";
-import { UserInfo } from "./UserInfo";
+// import { UserInfo } from "./UserInfo";
 
-const BlogDetail = ({ blog, updateLike, handleLogout }) => {
+const BlogDetail = ({ blog, updateLike }) => {
   const increaseLike = (id) => {
     // console.log("id", id);
     updateLike(id, blog.likes + 1);
   };
   return (
     <div>
-      <UserInfo handleLogout={handleLogout} />
+      {/* <UserInfo handleLogout={handleLogout} /> */}
       <h1>{blog.title}</h1>
       <a href={blog.url}>{blog.url}</a>
       <div>

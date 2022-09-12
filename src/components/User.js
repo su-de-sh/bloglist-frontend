@@ -1,12 +1,12 @@
 import React from "react";
 
 import { Link } from "react-router-dom";
-import { UserInfo } from "./UserInfo";
+// import { UserInfo } from "./UserInfo";
 
-const User = ({ handleLogout, userList }) => {
+const User = ({ userList }) => {
   return (
     <div>
-      <UserInfo handleLogout={handleLogout} />
+      {/* <UserInfo handleLogout={handleLogout} /> */}
 
       <table>
         <thead>
