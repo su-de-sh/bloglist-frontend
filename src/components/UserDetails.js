@@ -2,6 +2,7 @@ import React from "react";
 import { UserInfo } from "./UserInfo";
 
 const UserDetails = ({ user, handleLogout }) => {
+  if (!user) return null;
   return (
     <div>
       <UserInfo handleLogout={handleLogout} />
