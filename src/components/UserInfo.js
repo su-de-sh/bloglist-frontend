@@ -9,10 +9,10 @@ export function UserInfo({ handleLogout }) {
     <div>
       <h2>blogs</h2>
 
-      <span>
+      <div>
         {" "}
         <Link to="/users">{user.name}</Link> logged in{" "}
-      </span>
+      </div>
       <button onClick={handleLogout}>logout</button>
     </div>
   );
